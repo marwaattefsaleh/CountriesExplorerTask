@@ -44,9 +44,22 @@
 		F0995B743B9BF68C09320FD4 /* Pods-CountriesExplorerTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CountriesExplorerTask.release.xcconfig"; path = "Target Support Files/Pods-CountriesExplorerTask/Pods-CountriesExplorerTask.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BB5DB30D2EBD665D00934DC0 /* Exceptions for "CountriesExplorerTask" folder in "CountriesExplorerTask" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BB5DAFE62EBCE34900934DC0 /* CountriesExplorerTask */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BB5DAFE92EBCE34900934DC0 /* CountriesExplorerTask */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BB5DB30D2EBD665D00934DC0 /* Exceptions for "CountriesExplorerTask" folder in "CountriesExplorerTask" target */,
+			);
 			path = CountriesExplorerTask;
 			sourceTree = "<group>";
 		};
@@ -464,6 +477,8 @@
 /* Begin XCBuildConfiguration section */
 		BB5DB0092EBCE34A00934DC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = BB5DAFE92EBCE34900934DC0 /* CountriesExplorerTask */;
+			baseConfigurationReferenceRelativePath = Application/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -526,6 +541,8 @@
 		};
 		BB5DB00A2EBCE34A00934DC0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = BB5DAFE92EBCE34900934DC0 /* CountriesExplorerTask */;
+			baseConfigurationReferenceRelativePath = Application/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -592,6 +609,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CountriesExplorerTask/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -633,6 +651,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CountriesExplorerTask/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
