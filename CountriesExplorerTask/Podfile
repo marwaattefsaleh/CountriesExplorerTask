@@ -10,6 +10,7 @@ target 'CountriesExplorerTask' do
       pod 'SwiftLint', '0.62.1'
       pod 'NeedleFoundation', '0.25.1'
       pod 'AlertToast', '1.3.9'
+      pod 'SwiftUI-Shimmer', :git => 'https://github.com/markiv/SwiftUI-Shimmer.git'
 
   target 'CountriesExplorerTaskTests' do
     inherit! :search_paths

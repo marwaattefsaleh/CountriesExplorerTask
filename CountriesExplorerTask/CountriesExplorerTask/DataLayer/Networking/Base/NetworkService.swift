@@ -61,9 +61,7 @@ protocol NetworkServiceProtocol {
                     case 401: throw NetworkError.unauthorized
                     case 404: throw NetworkError.notFound
                     case 500...599:
-                        let message = try? JSONDecoder().decode(BaseResponse<String>.self, from: response.data ?? Data()).message
-                        
-                    
+                        let message = try? JSONDecoder().decode(BaseResponse<String>.self, from: response.data ?? Data()).message                    
                         throw NetworkError.serverError(message: message)
                     default: break
                     }
