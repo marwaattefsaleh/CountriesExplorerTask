@@ -1,6 +1,6 @@
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods
-  - AroundEgyptTask/Generated/NeedleGenerated.swift
+  - CountriesExplorerTask/Generated/NeedleGenerated.swift
 
 disabled_rules: # rule identifiers to exclude from running
   - line_length

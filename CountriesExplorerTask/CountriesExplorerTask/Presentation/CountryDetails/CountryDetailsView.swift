@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import Kingfisher
+import AlertToast
 
 struct CountryDetailsView: View {
+    @StateObject var viewModel: CountryDetailsViewModel
+    let country: CountryEntity
+
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -20,9 +25,9 @@ struct CountryDetailsView: View {
                 }.frame(width: Theme.Sizes.pt30, height: Theme.Sizes.pt30)
                     .foregroundColor(Color(hex: Theme.Colors.color000000))
                 Spacer()
-                Text("Country Name")
+                Text(country.name)
                     .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
-                Text("cca2")
+                Text(country.cca2)
                     .font(.system(size: Theme.Sizes.pt12, weight: .regular, design: .default))
                     .padding(Theme.Sizes.pt4)
                     .hexBackground(Theme.Colors.colorEceef2, cornerRadius: Theme.Sizes.pt4)
@@ -30,16 +35,29 @@ struct CountryDetailsView: View {
                 Color.clear.frame(width: Theme.Sizes.pt30, height: Theme.Sizes.pt30)
             }
             
-            Text("Region")
+            Text(country.region ?? "")
                 .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
                 .padding(.bottom, Theme.Sizes.pt16)
                 .foregroundColor(Color(hex: Theme.Colors.color8E8E93))
             ScrollView {
-                Image(systemName: "flag")
+                KFImage(URL(string: country.flag ?? ""))
                     .resizable()
-                    .scaledToFit()
+                    .cacheOriginalImage()
+                    .onFailure { e in
+                        debugPrint("Image loading failed: \(e)")
+                    }
+                    .placeholder {
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.3))
+                            .overlay(
+                                Image(systemName: "photo")
+                                    .foregroundColor(.gray)
+                            )
+                    }
+                    .scaledToFill()
                     .frame(maxWidth: .infinity)
-                    .frame(height: 150)
+                    .frame(height: Theme.Sizes.pt152)
+                    .clipShape(RoundedRectangle(cornerRadius: Theme.Sizes.pt8)) // 👈 this makes the image corners rounded
                     .hexBackground(Theme.Colors.colorEceef2, cornerRadius: Theme.Sizes.pt8)
                     .padding(.trailing, Theme.Sizes.pt4)
                 
@@ -53,7 +71,9 @@ struct CountryDetailsView: View {
             }
         }.padding(Theme.Sizes.pt16)
             .hexBackground(Theme.Colors.colorF9fafb)
-        
+            .toast(isPresenting: $viewModel.showToast, duration: 2) {
+                AlertToast(type: .regular, title: viewModel.toastMessage)
+            }
     }
     
     var viewCapital: some View {
@@ -62,7 +82,7 @@ struct CountryDetailsView: View {
                 .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("Capital name")
+            Text(country.capitalName ?? "")
                 .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
         } .padding(Theme.Sizes.pt8)
             .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -78,7 +98,7 @@ struct CountryDetailsView: View {
                 .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("Currency name")
+            Text(country.currency ?? "")
                 .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
         } .padding(Theme.Sizes.pt8)
             .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -101,7 +121,7 @@ struct CountryDetailsView: View {
                             .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    Text("Population number")
+                    Text("\(country.population ?? 0)")
                         .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
                 } .padding(Theme.Sizes.pt8)
                     .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -117,7 +137,7 @@ struct CountryDetailsView: View {
                             .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    Text("Region name")
+                    Text(country.region ?? "")
                         .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
                 } .padding(Theme.Sizes.pt8)
                     .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -141,7 +161,7 @@ struct CountryDetailsView: View {
                         .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                Text("Languages names")
+                Text(country.languages ?? "")
                     .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
             } .padding(Theme.Sizes.pt8)
                 .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -158,7 +178,7 @@ struct CountryDetailsView: View {
                         .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                Text("Coordinates detials")
+                Text(country.coordinates ?? "")
                     .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
             } .padding(Theme.Sizes.pt8)
                 .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -168,8 +188,4 @@ struct CountryDetailsView: View {
                 )
         }
     }
-}
-
-#Preview {
-    CountryDetailsView()
 }

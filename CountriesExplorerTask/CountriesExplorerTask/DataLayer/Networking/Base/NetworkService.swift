@@ -16,14 +16,13 @@ protocol NetworkServiceProtocol {
         headers: HTTPHeaders?
     ) async throws -> T
 }
- class NetworkService: NetworkServiceProtocol {
+
+class NetworkService: NetworkServiceProtocol {
     private let config: AppConfigurationProtocol
     private let session: Session
 
     init(config: AppConfigurationProtocol) {
         self.config = config
-        
-        // Retry policy
         let retrier = NetworkRequestRetrier()
         self.session = Session(interceptor: retrier)
     }
@@ -40,41 +39,64 @@ protocol NetworkServiceProtocol {
         }
 
         let finalHeaders = headers ?? HTTPHeaders()
+        let encoding: ParameterEncoding = method == .get ? URLEncoding.default : JSONEncoding.default
 
-        do {
-            let dataTask = session.request(
-                url,
-                method: method,
-                parameters: parameters,
-                encoding: method == .get ? URLEncoding.default : JSONEncoding.default,
-                headers: finalHeaders
-            )
+        let dataTask = session.request(
+            url,
+            method: method,
+            parameters: parameters,
+            encoding: encoding,
+            headers: finalHeaders
+        )
 
-            let response = await dataTask.serializingDecodable(T.self).response
+        let response = await dataTask.serializingData().response
 
-            switch response.result {
-            case .success(let data):
-                return data
-            case .failure(let afError):
-                if let code = response.response?.statusCode {
-                    switch code {
-                    case 401: throw NetworkError.unauthorized
-                    case 404: throw NetworkError.notFound
-                    case 500...599:
-                        let message = try? JSONDecoder().decode(BaseResponse<String>.self, from: response.data ?? Data()).message                    
-                        throw NetworkError.serverError(message: message)
-                    default: break
-                    }
-                }
+        // Check HTTP status
+        guard let statusCode = response.response?.statusCode else {
+            throw NetworkError.unknownError(error: response.error ?? AFError.explicitlyCancelled)
+        }
 
-                if afError.isSessionTaskError { throw NetworkError.noInternet }
-                if afError.isResponseSerializationError { throw NetworkError.decodingError }
-
-                throw NetworkError.unknownError(error: afError)
+        switch statusCode {
+        case 200...299:
+            do {
+                let decoded = try JSONDecoder().decode(T.self, from: response.data ?? Data())
+                return decoded
+            } catch {
+                throw NetworkError.decodingError
             }
-        } catch {
-            throw NetworkError.unknownError(error: error)
+
+        case 401:
+            throw NetworkError.unauthorized
+
+        case 404:
+            if let data = response.data,
+               let apiError = try? JSONDecoder().decode(ErrorResponse.self, from: data),
+               let message = apiError.message {
+                throw NetworkError.serverError(message: message)
+            } else {
+                throw NetworkError.notFound
+            }
+
+        case 500...599:
+            if let data = response.data,
+               let apiError = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
+                throw NetworkError.serverError(message: apiError.message)
+            } else {
+                throw NetworkError.serverError(message: nil)
+            }
+
+        default:
+            if let error = response.error {
+                if error.isSessionTaskError {
+                    throw NetworkError.noInternet
+                } else if error.isResponseSerializationError {
+                    throw NetworkError.decodingError
+                } else {
+                    throw NetworkError.unknownError(error: error)
+                }
+            } else {
+                throw NetworkError.unknownError(error: NSError(domain: "Unknown", code: statusCode))
+            }
         }
     }
 }
-

@@ -11,35 +11,35 @@ import SwiftUI_Shimmer
 struct SearchItemShimmerView: View {
     var body: some View {
         HStack {
-            RoundedRectangle(cornerRadius: 8)
+            RoundedRectangle(cornerRadius: Theme.Sizes.pt8)
                 .fill(Color(hex: Theme.Colors.color8E8E93).opacity(0.3))
-                .frame(width: 60, height: 45)
+                .frame(width: Theme.Sizes.pt60, height: Theme.Sizes.pt45)
                 .shimmering()
 
-            VStack(alignment: .leading, spacing: 6) {
-                RoundedRectangle(cornerRadius: 4)
+            VStack(alignment: .leading, spacing: Theme.Sizes.pt6) {
+                RoundedRectangle(cornerRadius: Theme.Sizes.pt4)
                     .fill(Color(hex: Theme.Colors.color8E8E93).opacity(0.3))
-                    .frame(width: 120, height: 14)
+                    .frame(width: Theme.Sizes.pt120, height: Theme.Sizes.pt14)
                     .shimmering()
 
-                RoundedRectangle(cornerRadius: 4)
+                RoundedRectangle(cornerRadius: Theme.Sizes.pt4)
                     .fill(Color(hex: Theme.Colors.color8E8E93).opacity(0.3))
-                    .frame(width: 80, height: 14)
+                    .frame(width: Theme.Sizes.pt80, height: Theme.Sizes.pt14)
                     .shimmering()
 
-                RoundedRectangle(cornerRadius: 4)
+                RoundedRectangle(cornerRadius: Theme.Sizes.pt4)
                     .fill(Color(hex: Theme.Colors.color8E8E93).opacity(0.3))
-                    .frame(width: 100, height: 14)
+                    .frame(width: Theme.Sizes.pt100, height: Theme.Sizes.pt14)
                     .shimmering()
             }
             Spacer()
 
             Circle()
                 .fill(Color(hex: Theme.Colors.color8E8E93).opacity(0.3))
-                .frame(width: 16, height: 16)
+                .frame(width: Theme.Sizes.pt16, height: Theme.Sizes.pt16)
                 .shimmering()
         }
-        .padding(8)
+        .padding(Theme.Sizes.pt8)
         .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
         .overlay(
             RoundedRectangle(cornerRadius: Theme.Sizes.pt8)

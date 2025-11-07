@@ -6,36 +6,35 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct HomeView: View {
+    @StateObject var viewModel: HomeViewModel
+    
     @State private var path = NavigationPath()
-    @State private var showDetailsSheet: Bool = false
+    @State private var selectedCountry: CountryEntity?
     
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
                 HStack {
-                    Text("Your selected countries 0/5")
+                    Text(viewModel.txtNumberSavedCountries)
                     Spacer()
-                    Button(action: {
-                        path.append("Search")
-                    }) {
-                        Image(systemName: "plus")
-                        Text("Add Country")
-                    }.foregroundColor(Color(hex: Theme.Colors.colorFFFFFF))
-                        .padding(Theme.Sizes.pt4).hexBackground(Theme.Colors.color000000, cornerRadius: Theme.Sizes.pt8)
+                    if viewModel.showAddButton {
+                        Button(action: {
+                            path.append("Search")
+                        }) {
+                            Image(systemName: "plus")
+                            Text("Add Country")
+                        }.foregroundColor(Color(hex: Theme.Colors.colorFFFFFF))
+                            .padding(Theme.Sizes.pt4).hexBackground(Theme.Colors.color000000, cornerRadius: Theme.Sizes.pt8)
+                    }
                 }
                 ScrollView {
-                    LazyVStack {
-                        ForEach(0..<5) { _ in
-                            CountryItemView(onAction: { _ in
-                                
-                            })
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                showDetailsSheet = true
-                            }
-                        }
+                    if viewModel.countryEntityList.isEmpty {
+                        viewEmptyState
+                    } else {
+                        viewListItems
                     }
                 }
             }
@@ -45,15 +44,37 @@ struct HomeView: View {
             .navigationTitle(Text("Countries Explorer"))
             .navigationDestination(for: String.self) { value in
                 if value == "Search" {
-                    SearchCountryView(path: $path)
+                    viewModel.navigateToSearch()
                 }
             }
-            .sheet(isPresented: $showDetailsSheet) {
-                CountryDetailsView()
+            .sheet(item: $selectedCountry) { country in
+                viewModel.navigateToDetails(country: country)
             }
         }.tint(Color(hex: Theme.Colors.color000000))
+            .onAppear {
+                viewModel.getCountries()
+            }.toast(isPresenting: $viewModel.showToast, duration: 2) {
+                AlertToast(type: .regular, title: viewModel.toastMessage)
+            }
     }
-    
+    var viewListItems: some View {
+        LazyVStack {
+            ForEach(0..<($viewModel.countryEntityList.wrappedValue.count), id: \.self) { ind in
+                CountryItemView(item: $viewModel.countryEntityList[ind], onAction: { action in
+                    switch action {
+                    case .delete:
+                        viewModel.deleteCountry(by: viewModel.countryEntityList[ind].cca2)
+                        
+                    }
+                })
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedCountry = viewModel.countryEntityList[ind]
+                    
+                }
+            }
+        }
+    }
     var viewEmptyState: some View {
         VStack(spacing: Theme.Sizes.pt8) {
             Image(systemName: "folder.badge.plus")
@@ -75,8 +96,4 @@ struct HomeView: View {
                 .stroke(Color(hex: Theme.Colors.colorDDDDDD), lineWidth: Theme.Sizes.pt1)
         ).padding(.top, Theme.Sizes.pt16)
     }
-}
-
-#Preview {
-    HomeView()
 }

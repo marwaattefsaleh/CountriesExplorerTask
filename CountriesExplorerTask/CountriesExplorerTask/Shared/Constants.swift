@@ -8,8 +8,8 @@
 struct Constants {
     static let BaseUrlKey = "BASE_URL"
     static let basePath = "v2"
-      
-      enum Endpoints {
+    static let maxSavedCountrySize = 5
+    enum Endpoints {
         
-      }
+    }
 }

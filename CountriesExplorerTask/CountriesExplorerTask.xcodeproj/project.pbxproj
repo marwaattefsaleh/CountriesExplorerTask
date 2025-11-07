@@ -45,7 +45,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BB5DB30D2EBD665D00934DC0 /* Exceptions for "CountriesExplorerTask" folder in "CountriesExplorerTask" target */ = {
+		BB8AF4882EBD7FDC00336800 /* Exceptions for "CountriesExplorerTask" folder in "CountriesExplorerTask" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -58,7 +58,7 @@
 		BB5DAFE92EBCE34900934DC0 /* CountriesExplorerTask */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BB5DB30D2EBD665D00934DC0 /* Exceptions for "CountriesExplorerTask" folder in "CountriesExplorerTask" target */,
+				BB8AF4882EBD7FDC00336800 /* Exceptions for "CountriesExplorerTask" folder in "CountriesExplorerTask" target */,
 			);
 			path = CountriesExplorerTask;
 			sourceTree = "<group>";
@@ -156,6 +156,7 @@
 			buildConfigurationList = BB5DB00B2EBCE34A00934DC0 /* Build configuration list for PBXNativeTarget "CountriesExplorerTask" */;
 			buildPhases = (
 				D962D5731560D2B2E5B3D502 /* [CP] Check Pods Manifest.lock */,
+				BB8AF4892EBE09FF00336800 /* Run Needle Script */,
 				BB5DAFE32EBCE34900934DC0 /* Sources */,
 				BB5DAFE42EBCE34900934DC0 /* Frameworks */,
 				BB5DAFE52EBCE34900934DC0 /* Resources */,
@@ -413,6 +414,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
+		BB8AF4892EBE09FF00336800 /* Run Needle Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Needle Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/opt/homebrew/bin/needle generate \"${SRCROOT}/CountriesExplorerTask/Generated/NeedleGenerated.swift\" \"${SRCROOT}/CountriesExplorerTask/\"\n\n";
+		};
 		D962D5731560D2B2E5B3D502 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -604,6 +623,7 @@
 				CODE_SIGN_ENTITLEMENTS = CountriesExplorerTask/CountriesExplorerTask.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TCD864MYK2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;

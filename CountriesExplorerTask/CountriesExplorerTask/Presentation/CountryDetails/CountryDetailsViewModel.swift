@@ -6,7 +6,6 @@
 //
 import Combine
 import Foundation
-import SwiftUI
 import FirebaseCrashlytics
 @MainActor
 final class CountryDetailsViewModel: ObservableObject {
@@ -19,4 +18,3 @@ final class CountryDetailsViewModel: ObservableObject {
         self.networkMonitor = networkMonitor
     }
 }
-
