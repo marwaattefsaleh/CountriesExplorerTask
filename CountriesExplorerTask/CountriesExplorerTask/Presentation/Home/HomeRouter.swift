@@ -6,10 +6,23 @@
 //
 
 protocol HomeRouterProtocol {
+    func navigateToDetails(country: CountryEntity) -> CountryDetailsView
+    func navigateToSearch(onCountrySaved: @escaping () -> Void) -> SearchCountryView
 }
 
 class HomeRouter: HomeRouterProtocol {
     
-    init() {
+    private let homeComponent: HomeComponent
+    
+    init(homeComponent: HomeComponent) {
+        self.homeComponent = homeComponent
+    }
+    
+    func navigateToDetails(country: CountryEntity) -> CountryDetailsView {
+        self.homeComponent.countryDetailsViewBuilder.countryDetailsView(country: country)
+    }
+    
+    func navigateToSearch(onCountrySaved: @escaping () -> Void) -> SearchCountryView {
+        self.homeComponent.searchCountryViewBuilder.searchCountryView(onCountrySaved: onCountrySaved)
     }
 }

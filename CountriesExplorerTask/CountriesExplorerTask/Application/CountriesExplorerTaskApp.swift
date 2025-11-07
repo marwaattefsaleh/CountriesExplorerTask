@@ -11,24 +11,18 @@ import SwiftData
 @main
 struct CountriesExplorerTaskApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    var appComponent: AppComponent!
 
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+    init() {
+        // Register Needle providers
+        registerProviderFactories()
+        appComponent = AppComponent()
 
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    }
 
     var body: some Scene {
         WindowGroup {
-            HomeView()
-        }
-        .modelContainer(sharedModelContainer)
+          appComponent.HomeViewBuilder.homeView
+        }.modelContainer(appComponent.modelContainer)
     }
 }

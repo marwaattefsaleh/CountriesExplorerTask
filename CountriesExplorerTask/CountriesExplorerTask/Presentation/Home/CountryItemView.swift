@@ -6,30 +6,46 @@
 //
 
 import SwiftUI
-
+import Kingfisher
 struct CountryItemView: View {
+    @Binding var item: CountryEntity
     let onAction: (CountryItemViewAction) -> Void
 
     var body: some View {
         VStack(spacing: Theme.Sizes.pt6) {
             HStack {
-                Image(systemName: "flag")
+                KFImage(URL(string: item.flag ?? ""))
                     .resizable()
-                    .scaledToFit()
+                    .cacheOriginalImage()
+                    .onFailure { e in
+                        debugPrint("Image loading failed: \(e)")
+                    }
+                    .placeholder {
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.3))
+                            .overlay(
+                                Image(systemName: "photo")
+                                    .foregroundColor(.gray)
+                            )
+                    }
+                    .scaledToFill()
                     .frame(width: Theme.Sizes.pt60, height: Theme.Sizes.pt45)
+                    .clipShape(RoundedRectangle(cornerRadius: Theme.Sizes.pt8)) // 👈 this makes the image corners rounded
                     .hexBackground(Theme.Colors.colorEceef2, cornerRadius: Theme.Sizes.pt8)
                     .padding(.trailing, Theme.Sizes.pt4)
                 VStack(alignment: .leading) {
-                    Text("Country Name")
+                    Text(item.name)
                         .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                     
-                    Text("cca2")
+                    Text(item.cca2)
                         .font(.system(size: Theme.Sizes.pt12, weight: .regular, design: .default))
                         .padding(Theme.Sizes.pt4)
                         .hexBackground(Theme.Colors.colorEceef2, cornerRadius: Theme.Sizes.pt4)
                 }
                 Spacer()
-                Button(action: {}) {
+                Button(action: {
+                    onAction(.delete(item.cca2))
+                }) {
                     Image(systemName: "xmark.circle.fill")
                         .resizable()
                         .foregroundColor(.red)
@@ -41,7 +57,7 @@ struct CountryItemView: View {
                 Text("Capital:")
                     .font(.system(size: Theme.Sizes.pt14, weight: .medium, design: .default))
                 
-                Text("City Name")
+                Text(item.capitalName ?? "")
                     .font(.system(size: Theme.Sizes.pt14, weight: .regular, design: .default))
                 
                 Spacer()
@@ -51,7 +67,7 @@ struct CountryItemView: View {
                 Text("Currency:")
                     .font(.system(size: Theme.Sizes.pt14, weight: .medium, design: .default))
                 
-                Text("Currency Name")
+                Text(item.currency ?? "")
                     .font(.system(size: Theme.Sizes.pt14, weight: .regular, design: .default))
                 
                 Spacer()

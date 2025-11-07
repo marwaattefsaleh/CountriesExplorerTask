@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Foundation
 
 struct CountryDTO: Decodable {
     let name: String
@@ -59,4 +58,11 @@ struct RegionalBlocDTO: Decodable {
     let acronym: String
     let name: String
     let otherNames: [String]?
+}
+
+extension CountryDTO {
+    func toEntity() -> CountryEntity {
+        return CountryEntity(name: self.name, capitalName: self.capital, flag: self.flags?.png, currency: self.currencies?.map { "\($0.code)(\($0.symbol ?? ""))" }.joined(separator: ", "), cca2: self.alpha2Code, population: self.population, region: self.region, languages: self.languages?.map { $0.name }.joined(separator: ", "), coordinates: latlng?.map { "\($0)" }.joined(separator: ", "))
+    }
+  
 }

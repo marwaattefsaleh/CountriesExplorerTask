@@ -5,25 +5,41 @@
 //  Created by Marwa Attef on 06/11/2025.
 //
 import SwiftUI
+import Kingfisher
 
 struct SearchItemView: View {
-
+    @Binding var item: CountryEntity
     var body: some View {
         VStack(spacing: Theme.Sizes.pt6) {
             HStack {
-                Image(systemName: "flag")
+                
+                KFImage(URL(string: item.flag ?? ""))
                     .resizable()
-                    .scaledToFit()
+                    .cacheOriginalImage()
+                    .onFailure { e in
+                        debugPrint("Image loading failed: \(e)")
+                    }
+                    .placeholder {
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.3))
+                            .overlay(
+                                Image(systemName: "photo")
+                                    .foregroundColor(.gray)
+                            )
+                    }
+                    .scaledToFill()
                     .frame(width: Theme.Sizes.pt60, height: Theme.Sizes.pt45)
+                    .clipShape(RoundedRectangle(cornerRadius: Theme.Sizes.pt8)) // 👈 this makes the image corners rounded
                     .hexBackground(Theme.Colors.colorEceef2, cornerRadius: Theme.Sizes.pt8)
                     .padding(.trailing, Theme.Sizes.pt4)
+                
                 VStack(alignment: .leading) {
-                    Text("Country Name")
+                    Text(item.name)
                         .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                     
-                    Text("City Name")
+                    Text(item.capitalName ?? "")
                         .font(.system(size: Theme.Sizes.pt14, weight: .regular, design: .default))
-                    Text("Currency Name")
+                    Text(item.currency ?? "")
                         .font(.system(size: Theme.Sizes.pt14, weight: .regular, design: .default))
                 }
                 Spacer()

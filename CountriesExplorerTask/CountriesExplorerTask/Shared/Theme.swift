@@ -38,6 +38,8 @@ struct Theme {
         static let pt46: CGFloat = getDimen(size: 46.0)
         static let pt50: CGFloat = getDimen(size: 50.0)
         static let pt60: CGFloat = getDimen(size: 60.0)
+        static let pt80: CGFloat = getDimen(size: 80.0)
+        static let pt100: CGFloat = getDimen(size: 100.0)
         static let pt120: CGFloat = getDimen(size: 120.0)
         static let pt152: CGFloat = getDimen(size: 152.0)
         static let pt154: CGFloat = getDimen(size: 154.0)
