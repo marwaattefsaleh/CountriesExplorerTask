@@ -32,6 +32,9 @@ private class HomeDependency443c4e1871277bd8432aProvider: HomeDependency {
     var deleteCountryUseCase: DeleteCountryUseCaseProtocol {
         return appComponent.deleteCountryUseCase
     }
+    var locationManager: LocationManagerProtocol {
+        return appComponent.locationManager
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -75,6 +78,7 @@ private func factory2bbad96217cded030b99b7304b634b3e62c64b3c(_ component: Needle
 extension AppComponent: NeedleFoundation.Registration {
     public func registerItems() {
 
+        localTable["locationManager-LocationManagerProtocol"] = { [unowned self] in self.locationManager as Any }
         localTable["countryModelActor-CountryModelActor"] = { [unowned self] in self.countryModelActor as Any }
         localTable["networkService-NetworkServiceProtocol"] = { [unowned self] in self.networkService as Any }
         localTable["networkMonitor-NetworkMonitorProtocol"] = { [unowned self] in self.networkMonitor as Any }
@@ -88,6 +92,7 @@ extension HomeComponent: NeedleFoundation.Registration {
         keyPathToName[\HomeDependency.networkMonitor] = "networkMonitor-NetworkMonitorProtocol"
         keyPathToName[\HomeDependency.getCountryUseCase] = "getCountryUseCase-GetCountryUseCaseProtocol"
         keyPathToName[\HomeDependency.deleteCountryUseCase] = "deleteCountryUseCase-DeleteCountryUseCaseProtocol"
+        keyPathToName[\HomeDependency.locationManager] = "locationManager-LocationManagerProtocol"
 
     }
 }

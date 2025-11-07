@@ -13,6 +13,7 @@ protocol CountryRepositoryProtocol: AnyObject {
     func deleteCountryLocaly(by code: String) async throws
     func getAllCountriesLocaly() async throws -> [CountryEntity]
     func getCountryLocaly(by cca2: String) async throws -> CountryEntity
+    func getCountries(by cca2: String) async throws -> [CountryEntity]
 }
 
 class CountryRepository: CountryRepositoryProtocol {
@@ -43,5 +44,10 @@ class CountryRepository: CountryRepositoryProtocol {
     
     func getCountryLocaly(by cca2: String) async throws -> CountryEntity {
         try await self.localeDataSource.getCountry(by: cca2)
+    }
+    
+    func getCountries(by cca2: String) async throws -> [CountryEntity] {
+        let dtoList = try await self.remoteDataSource.getCountries(by: cca2)
+         return dtoList.map { $0.toEntity() }
     }
 }

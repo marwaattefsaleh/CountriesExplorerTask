@@ -66,7 +66,7 @@ struct HomeView: View {
                         viewModel.deleteCountry(by: viewModel.countryEntityList[ind].cca2)
                         
                     }
-                })
+                }, showDeleteButton: viewModel.countryEntityList.count > 1)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     selectedCountry = viewModel.countryEntityList[ind]

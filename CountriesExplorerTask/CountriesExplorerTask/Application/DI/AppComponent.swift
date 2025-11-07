@@ -18,7 +18,9 @@ class AppComponent: BootstrapComponent {
     var appConfiguration: AppConfigurationProtocol {
         shared { AppConfiguration() }
     }
-    
+   public var locationManager: LocationManagerProtocol {
+          shared { LocationManager() }
+      }
     var modelContainer: ModelContainer {
         shared {
             do {
