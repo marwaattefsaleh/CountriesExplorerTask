@@ -10,6 +10,7 @@ protocol HomeDependency: Dependency {
     var networkMonitor: NetworkMonitorProtocol { get }
     var getCountryUseCase: GetCountryUseCaseProtocol {get}
     var deleteCountryUseCase: DeleteCountryUseCaseProtocol {get}
+    var locationManager: LocationManagerProtocol { get }
 }
 
 protocol HomeViewBuilder {
@@ -30,7 +31,9 @@ class HomeComponent: Component<HomeDependency>, HomeViewBuilder {
                 deleteCountryUseCase: self.deleteCountryUseCase,
                     getCountryUseCase: self.getCountryUseCase,
                 router: router,
-                networkMonitor: networkMonitor
+                networkMonitor: networkMonitor,
+                locationManager: self.locationManager
+
             )
         }
     }

@@ -46,7 +46,7 @@ struct SearchCountryView: View {
     var viewSearch: some View {
         HStack {
             HStack {
-                Image("search")
+                Image(systemName: "magnifyingglass")
                 TextField("search", text: $searchText, prompt: Text("Search for country...")
                     .foregroundColor(Color(hex: Theme.Colors.color8E8E93)))
                 .accessibilityIdentifier("searchTextField")

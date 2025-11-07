@@ -9,6 +9,8 @@ struct Constants {
     static let BaseUrlKey = "BASE_URL"
     static let basePath = "v2"
     static let maxSavedCountrySize = 5
+    static let defaultCountryCode = "EG"
+
     enum Endpoints {
         
     }

@@ -9,6 +9,8 @@ import Foundation
 
 protocol CountryRemoteDataSourceProtocol {
     func searchCountries(by name: String)  async throws -> [CountryDTO]
+    func getCountries(by cca2: String) async throws -> [CountryDTO]
+
 }
 
 class CountryRemoteDataSource: CountryRemoteDataSourceProtocol {
@@ -21,6 +23,14 @@ class CountryRemoteDataSource: CountryRemoteDataSourceProtocol {
     func searchCountries(by name: String) async throws -> [CountryDTO] {
         let response: [CountryDTO] = try await networkService.request(
             endpoint: "\(Constants.basePath)/name/\(name)",
+            method: .get, parameters: nil, headers: nil
+        )
+        return response
+    }
+    
+    func getCountries(by cca2: String) async throws -> [CountryDTO] {
+        let response: [CountryDTO] = try await networkService.request(
+            endpoint: "\(Constants.basePath)/alpha?codes=\(cca2)",
             method: .get, parameters: nil, headers: nil
         )
         return response

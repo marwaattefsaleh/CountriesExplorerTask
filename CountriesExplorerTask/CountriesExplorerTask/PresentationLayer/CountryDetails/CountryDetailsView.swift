@@ -35,7 +35,7 @@ struct CountryDetailsView: View {
                 Color.clear.frame(width: Theme.Sizes.pt30, height: Theme.Sizes.pt30)
             }
             
-            Text(country.region ?? "")
+            Text(country.region ?? "N/A")
                 .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
                 .padding(.bottom, Theme.Sizes.pt16)
                 .foregroundColor(Color(hex: Theme.Colors.color8E8E93))
@@ -82,7 +82,7 @@ struct CountryDetailsView: View {
                 .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text(country.capitalName ?? "")
+            Text(country.capitalName ?? "N/A")
                 .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
         } .padding(Theme.Sizes.pt8)
             .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -98,7 +98,7 @@ struct CountryDetailsView: View {
                 .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text(country.currency ?? "")
+            Text(country.currency ?? "N/A")
                 .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
         } .padding(Theme.Sizes.pt8)
             .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -121,7 +121,7 @@ struct CountryDetailsView: View {
                             .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    Text("\(country.population ?? 0)")
+                    Text("\((country.population ?? 0) == 0 ? "N/A" :  "\(country.population!)")")
                         .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
                 } .padding(Theme.Sizes.pt8)
                     .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -137,7 +137,7 @@ struct CountryDetailsView: View {
                             .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    Text(country.region ?? "")
+                    Text(country.region ?? "N/A")
                         .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
                 } .padding(Theme.Sizes.pt8)
                     .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -161,7 +161,7 @@ struct CountryDetailsView: View {
                         .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                Text(country.languages ?? "")
+                Text(country.languages ?? "N/A")
                     .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
             } .padding(Theme.Sizes.pt8)
                 .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -178,7 +178,7 @@ struct CountryDetailsView: View {
                         .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                Text(country.coordinates ?? "")
+                Text(country.coordinates ?? "N/A")
                     .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
             } .padding(Theme.Sizes.pt8)
                 .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
