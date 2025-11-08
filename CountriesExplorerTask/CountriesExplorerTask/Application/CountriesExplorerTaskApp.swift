@@ -18,6 +18,8 @@ struct CountriesExplorerTaskApp: App {
         // Register Needle providers
         registerProviderFactories()
         appComponent = AppComponent()
+        UIView.appearance().overrideUserInterfaceStyle = .light
+
         if CommandLine.arguments.contains("--UITestMode--details") {
             let testCountry = CountryEntity(name: "Egypt", capitalName: "Cairo", flag: nil, currency: "EGP", cca2: "EG", population: 100_000_000, region: "Africa", languages: "Arabic", coordinates: "30.033° N, 31.233° E")
             let mockVM = HomeViewModel(deleteCountryUseCase: MockDeleteCountryUseCase(), getCountryUseCase: MockGetCountryUseCase(), router: MockHomeRouter(), locationManager: MockLocationManager())
