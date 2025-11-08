@@ -52,7 +52,7 @@
 			);
 			target = BB5DAFE62EBCE34900934DC0 /* CountriesExplorerTask */;
 		};
-		BB8AF5B62EBEF0A400336800 /* Exceptions for "CountriesExplorerTaskTests" folder in "CountriesExplorerTask" target */ = {
+		BB8AF6012EBF007800336800 /* Exceptions for "CountriesExplorerTaskTests" folder in "CountriesExplorerTask" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				MockFiles/MockDeleteCountryUseCase.swift,
@@ -77,7 +77,7 @@
 		BB5DAFFA2EBCE34A00934DC0 /* CountriesExplorerTaskTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BB8AF5B62EBEF0A400336800 /* Exceptions for "CountriesExplorerTaskTests" folder in "CountriesExplorerTask" target */,
+				BB8AF6012EBF007800336800 /* Exceptions for "CountriesExplorerTaskTests" folder in "CountriesExplorerTask" target */,
 			);
 			path = CountriesExplorerTaskTests;
 			sourceTree = "<group>";
