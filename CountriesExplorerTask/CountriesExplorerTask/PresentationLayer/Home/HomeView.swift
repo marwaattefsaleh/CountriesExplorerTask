@@ -26,7 +26,8 @@ struct HomeView: View {
                         }) {
                             Image(systemName: "plus")
                             Text("Add Country")
-                        }.foregroundColor(Color(hex: Theme.Colors.colorFFFFFF))
+                        }.accessibilityIdentifier("addCountryButton")
+                        .foregroundColor(Color(hex: Theme.Colors.colorFFFFFF))
                             .padding(Theme.Sizes.pt4).hexBackground(Theme.Colors.color000000, cornerRadius: Theme.Sizes.pt8)
                     }
                 }
@@ -52,7 +53,10 @@ struct HomeView: View {
             }
         }.tint(Color(hex: Theme.Colors.color000000))
             .onAppear {
-                viewModel.getCountries()
+                if CommandLine.arguments.contains("--UITestMode--details") {
+                } else {
+                    viewModel.getCountries()
+                }
             }.toast(isPresenting: $viewModel.showToast, duration: 2) {
                 AlertToast(type: .regular, title: viewModel.toastMessage)
             }
@@ -68,6 +72,8 @@ struct HomeView: View {
                     }
                 }, showDeleteButton: viewModel.countryEntityList.count > 1)
                 .contentShape(Rectangle())
+                .accessibilityElement(children: .contain)
+                    .accessibilityIdentifier("countryCell_\(ind)")
                 .onTapGesture {
                     selectedCountry = viewModel.countryEntityList[ind]
                     
@@ -83,10 +89,13 @@ struct HomeView: View {
             Text("No countries selected yet")
                 .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                 .foregroundColor(Color(hex: Theme.Colors.color8E8E93))
-            
+                .accessibilityIdentifier("emptyStateTitle")
+
             Text("Add countries to start exploring")
                 .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
                 .foregroundColor(Color(hex: Theme.Colors.color8E8E93))
+                .accessibilityIdentifier("emptyStateSubtitle")
+
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, Theme.Sizes.pt30)
@@ -95,5 +104,7 @@ struct HomeView: View {
             RoundedRectangle(cornerRadius: Theme.Sizes.pt8)
                 .stroke(Color(hex: Theme.Colors.colorDDDDDD), lineWidth: Theme.Sizes.pt1)
         ).padding(.top, Theme.Sizes.pt16)
+            .accessibilityIdentifier("emptyStateView")
+
     }
 }

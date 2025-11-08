@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CountryDTO: Decodable {
+struct CountryDTO: Codable {
     let name: String
     let topLevelDomain: [String]?
     let alpha2Code: String
@@ -36,25 +36,25 @@ struct CountryDTO: Decodable {
     let independent: Bool?
 }
 
-struct FlagDTO: Decodable {
+struct FlagDTO: Codable {
     let svg: String
     let png: String
 }
 
-struct CurrencyDTO: Decodable {
+struct CurrencyDTO: Codable {
     let code: String
     let name: String
     let symbol: String?
 }
 
-struct LanguageDTO: Decodable {
+struct LanguageDTO: Codable {
     let iso639_1: String?
     let iso639_2: String?
     let name: String
     let nativeName: String?
 }
 
-struct RegionalBlocDTO: Decodable {
+struct RegionalBlocDTO: Codable {
     let acronym: String
     let name: String
     let otherNames: [String]?

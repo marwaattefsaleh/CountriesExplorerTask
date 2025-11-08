@@ -14,14 +14,19 @@ final class SearchCountryViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published  var countryEntityList: [CountryEntity] = []
     
-    private let networkMonitor: NetworkMonitorProtocol
     var toastMessage: String = ""
     private let searchCountriesUseCase: SearchCountriesUseCaseProtocol
     @Published var itemSelected: Bool = false
     
-    init(searchCountriesUseCase: SearchCountriesUseCaseProtocol, networkMonitor: NetworkMonitorProtocol) {
+    init(searchCountriesUseCase: SearchCountriesUseCaseProtocol) {
         self.searchCountriesUseCase = searchCountriesUseCase
-        self.networkMonitor = networkMonitor
+    }
+    func performSearch(query: String) async throws -> [CountryEntity] {
+        try await searchCountriesUseCase.searchCountries(by: query)
+    }
+    
+    func performSaveCountry(_ country: CountryEntity) async throws {
+        try await searchCountriesUseCase.saveSelectedCountry(country)
     }
     
     func searchCountries(query: String) {
@@ -31,7 +36,7 @@ final class SearchCountryViewModel: ObservableObject {
         isLoading = true
         Task {
             do {
-                countryEntityList = try await searchCountriesUseCase.searchCountries(by: query)
+                countryEntityList = try await self.performSearch(query: query)
                 
             } catch {
                 countryEntityList = []
@@ -46,7 +51,7 @@ final class SearchCountryViewModel: ObservableObject {
     func saveSelectedCountry(_ country: CountryEntity) {
         Task {
             do {
-                try await self.searchCountriesUseCase.saveSelectedCountry(country)
+                try await self.performSaveCountry(country)
                 self.itemSelected = true
             } catch {
                 toastMessage = error.localizedDescription

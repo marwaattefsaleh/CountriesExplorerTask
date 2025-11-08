@@ -53,6 +53,18 @@ class NetworkService: NetworkServiceProtocol {
 
         // Check HTTP status
         guard let statusCode = response.response?.statusCode else {
+            
+            if let urlError = response.error?.underlyingError as? URLError {
+                   switch urlError.code {
+                   case .notConnectedToInternet:
+                       throw NetworkError.noInternet
+                   case .timedOut:
+                       throw NetworkError.timedOut
+                   default:
+                       throw NetworkError.unknownError(error: response.error ?? AFError.explicitlyCancelled)
+                   }
+               }
+            
             throw NetworkError.unknownError(error: response.error ?? AFError.explicitlyCancelled)
         }
 

@@ -7,7 +7,6 @@
 import NeedleFoundation
 
 protocol HomeDependency: Dependency {
-    var networkMonitor: NetworkMonitorProtocol { get }
     var getCountryUseCase: GetCountryUseCaseProtocol {get}
     var deleteCountryUseCase: DeleteCountryUseCaseProtocol {get}
     var locationManager: LocationManagerProtocol { get }
@@ -25,13 +24,11 @@ class HomeComponent: Component<HomeDependency>, HomeViewBuilder {
     
     var homeViewModel: HomeViewModel {
         let router = self.homeRouter
-        let networkMonitor = self.networkMonitor
                 return MainActor.assumeIsolated {
             HomeViewModel(
                 deleteCountryUseCase: self.deleteCountryUseCase,
                     getCountryUseCase: self.getCountryUseCase,
                 router: router,
-                networkMonitor: networkMonitor,
                 locationManager: self.locationManager
 
             )

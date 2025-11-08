@@ -23,9 +23,6 @@ private func parent2(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 #if !NEEDLE_DYNAMIC
 
 private class HomeDependency443c4e1871277bd8432aProvider: HomeDependency {
-    var networkMonitor: NetworkMonitorProtocol {
-        return appComponent.networkMonitor
-    }
     var getCountryUseCase: GetCountryUseCaseProtocol {
         return appComponent.getCountryUseCase
     }
@@ -45,9 +42,6 @@ private func factory67229cdf0f755562b2b1f47b58f8f304c97af4d5(_ component: Needle
     return HomeDependency443c4e1871277bd8432aProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class SearchCountryDependencyb36ab6ff25e9aa2a936cProvider: SearchCountryDependency {
-    var networkMonitor: NetworkMonitorProtocol {
-        return appComponent.networkMonitor
-    }
     var searchCountriesUseCase: SearchCountriesUseCaseProtocol {
         return appComponent.searchCountriesUseCase
     }
@@ -61,17 +55,15 @@ private func factory5069b4ce96375b8be5acb7304b634b3e62c64b3c(_ component: Needle
     return SearchCountryDependencyb36ab6ff25e9aa2a936cProvider(appComponent: parent2(component) as! AppComponent)
 }
 private class CountryDetailsDependencyaf318d611981b185d55bProvider: CountryDetailsDependency {
-    var networkMonitor: NetworkMonitorProtocol {
-        return appComponent.networkMonitor
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->HomeComponent->CountryDetailsComponent
-private func factory2bbad96217cded030b99b7304b634b3e62c64b3c(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return CountryDetailsDependencyaf318d611981b185d55bProvider(appComponent: parent2(component) as! AppComponent)
+private func factory2bbad96217cded030b99e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return CountryDetailsDependencyaf318d611981b185d55bProvider()
 }
 
 #else
@@ -81,7 +73,6 @@ extension AppComponent: NeedleFoundation.Registration {
         localTable["locationManager-LocationManagerProtocol"] = { [unowned self] in self.locationManager as Any }
         localTable["countryModelActor-CountryModelActor"] = { [unowned self] in self.countryModelActor as Any }
         localTable["networkService-NetworkServiceProtocol"] = { [unowned self] in self.networkService as Any }
-        localTable["networkMonitor-NetworkMonitorProtocol"] = { [unowned self] in self.networkMonitor as Any }
         localTable["searchCountriesUseCase-SearchCountriesUseCaseProtocol"] = { [unowned self] in self.searchCountriesUseCase as Any }
         localTable["getCountryUseCase-GetCountryUseCaseProtocol"] = { [unowned self] in self.getCountryUseCase as Any }
         localTable["deleteCountryUseCase-DeleteCountryUseCaseProtocol"] = { [unowned self] in self.deleteCountryUseCase as Any }
@@ -89,7 +80,6 @@ extension AppComponent: NeedleFoundation.Registration {
 }
 extension HomeComponent: NeedleFoundation.Registration {
     public func registerItems() {
-        keyPathToName[\HomeDependency.networkMonitor] = "networkMonitor-NetworkMonitorProtocol"
         keyPathToName[\HomeDependency.getCountryUseCase] = "getCountryUseCase-GetCountryUseCaseProtocol"
         keyPathToName[\HomeDependency.deleteCountryUseCase] = "deleteCountryUseCase-DeleteCountryUseCaseProtocol"
         keyPathToName[\HomeDependency.locationManager] = "locationManager-LocationManagerProtocol"
@@ -98,13 +88,12 @@ extension HomeComponent: NeedleFoundation.Registration {
 }
 extension SearchCountryComponent: NeedleFoundation.Registration {
     public func registerItems() {
-        keyPathToName[\SearchCountryDependency.networkMonitor] = "networkMonitor-NetworkMonitorProtocol"
         keyPathToName[\SearchCountryDependency.searchCountriesUseCase] = "searchCountriesUseCase-SearchCountriesUseCaseProtocol"
     }
 }
 extension CountryDetailsComponent: NeedleFoundation.Registration {
     public func registerItems() {
-        keyPathToName[\CountryDetailsDependency.networkMonitor] = "networkMonitor-NetworkMonitorProtocol"
+
     }
 }
 
@@ -126,7 +115,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->HomeComponent", factory67229cdf0f755562b2b1f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->HomeComponent->SearchCountryComponent", factory5069b4ce96375b8be5acb7304b634b3e62c64b3c)
-    registerProviderFactory("^->AppComponent->HomeComponent->CountryDetailsComponent", factory2bbad96217cded030b99b7304b634b3e62c64b3c)
+    registerProviderFactory("^->AppComponent->HomeComponent->CountryDetailsComponent", factory2bbad96217cded030b99e3b0c44298fc1c149afb)
 }
 #endif
 

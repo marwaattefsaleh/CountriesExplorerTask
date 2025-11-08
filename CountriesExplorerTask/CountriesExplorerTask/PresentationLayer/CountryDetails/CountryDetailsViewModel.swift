@@ -8,13 +8,8 @@ import Combine
 import Foundation
 import FirebaseCrashlytics
 @MainActor
-final class CountryDetailsViewModel: ObservableObject {
-    @Published var showToast: Bool = false
-    @Published var isLoading: Bool = false
-    private let networkMonitor: NetworkMonitorProtocol
-    var toastMessage: String = ""
-
-    init(networkMonitor: NetworkMonitorProtocol) {
-        self.networkMonitor = networkMonitor
+class CountryDetailsViewModel: ObservableObject {
+init() {
+        
     }
 }
