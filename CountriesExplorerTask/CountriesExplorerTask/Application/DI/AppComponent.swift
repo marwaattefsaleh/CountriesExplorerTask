@@ -42,12 +42,6 @@ class AppComponent: BootstrapComponent {
     public var networkService: NetworkServiceProtocol {
         NetworkService(config: appConfiguration)
     }
-    
-    public var networkMonitor: NetworkMonitorProtocol {
-          shared {
-              NetworkMonitor()
-          }
-      }
 
     var countryRemoteDataSource: CountryRemoteDataSourceProtocol {
         CountryRemoteDataSource(networkService: self.networkService)

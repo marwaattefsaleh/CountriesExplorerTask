@@ -7,7 +7,6 @@
 import NeedleFoundation
 
 protocol CountryDetailsDependency: Dependency {
-    var networkMonitor: NetworkMonitorProtocol { get }
 }
 
 protocol CountryDetailsViewBuilder {
@@ -17,10 +16,8 @@ protocol CountryDetailsViewBuilder {
 class CountryDetailsComponent: Component<CountryDetailsDependency>, CountryDetailsViewBuilder {
 
     var countryDetailsViewModel: CountryDetailsViewModel {
-        let networkMonitor = self.networkMonitor
                 return MainActor.assumeIsolated {
                     CountryDetailsViewModel(
-                networkMonitor: networkMonitor
             )
         }
     }

@@ -22,10 +22,12 @@ struct CountryDetailsView: View {
                     dismiss()
                 }) {
                     Image(systemName: "xmark")
-                }.frame(width: Theme.Sizes.pt30, height: Theme.Sizes.pt30)
+                }.accessibilityIdentifier("dismissButton")
+                .frame(width: Theme.Sizes.pt30, height: Theme.Sizes.pt30)
                     .foregroundColor(Color(hex: Theme.Colors.color000000))
                 Spacer()
                 Text(country.name)
+                    .accessibilityIdentifier("countryNameLabel")
                     .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                 Text(country.cca2)
                     .font(.system(size: Theme.Sizes.pt12, weight: .regular, design: .default))
@@ -71,9 +73,7 @@ struct CountryDetailsView: View {
             }
         }.padding(Theme.Sizes.pt16)
             .hexBackground(Theme.Colors.colorF9fafb)
-            .toast(isPresenting: $viewModel.showToast, duration: 2) {
-                AlertToast(type: .regular, title: viewModel.toastMessage)
-            }
+           
     }
     
     var viewCapital: some View {
@@ -83,6 +83,7 @@ struct CountryDetailsView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             Text(country.capitalName ?? "N/A")
+                .accessibilityIdentifier("capitalLabel")
                 .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
         } .padding(Theme.Sizes.pt8)
             .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -99,6 +100,7 @@ struct CountryDetailsView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             Text(country.currency ?? "N/A")
+                .accessibilityIdentifier("currencyLabel")
                 .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
         } .padding(Theme.Sizes.pt8)
             .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -138,6 +140,7 @@ struct CountryDetailsView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     Text(country.region ?? "N/A")
+                        .accessibilityIdentifier("regionLabel")
                         .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
                 } .padding(Theme.Sizes.pt8)
                     .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -162,6 +165,7 @@ struct CountryDetailsView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 Text(country.languages ?? "N/A")
+                    .accessibilityIdentifier("languagesLabel")
                     .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
             } .padding(Theme.Sizes.pt8)
                 .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)
@@ -179,6 +183,7 @@ struct CountryDetailsView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 Text(country.coordinates ?? "N/A")
+                    .accessibilityIdentifier("coordinatesLabel")
                     .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
             } .padding(Theme.Sizes.pt8)
                 .hexBackground(Theme.Colors.colorFFFFFF, cornerRadius: Theme.Sizes.pt8)

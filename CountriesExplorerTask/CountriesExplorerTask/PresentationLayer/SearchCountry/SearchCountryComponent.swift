@@ -7,7 +7,6 @@
 import NeedleFoundation
 
 protocol SearchCountryDependency: Dependency {
-    var networkMonitor: NetworkMonitorProtocol { get }
     var searchCountriesUseCase: SearchCountriesUseCaseProtocol {get}
 
 }
@@ -19,10 +18,9 @@ protocol SearchCountryViewBuilder {
 class SearchCountryComponent: Component<SearchCountryDependency>, SearchCountryViewBuilder {
 
     var searchCountryViewModel: SearchCountryViewModel {
-        let networkMonitor = self.networkMonitor
                 return MainActor.assumeIsolated {
                     SearchCountryViewModel(
-                        searchCountriesUseCase: self.searchCountriesUseCase, networkMonitor: networkMonitor
+                        searchCountriesUseCase: self.searchCountriesUseCase
             )
         }
     }

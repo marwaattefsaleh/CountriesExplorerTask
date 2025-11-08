@@ -30,6 +30,7 @@ struct SearchCountryView: View {
                 }
             }
         }
+        .accessibilityIdentifier("searchCountryViewRoot")
         .padding(Theme.Sizes.pt16)
         .hexBackground(Theme.Colors.colorF9fafb)
         .navigationTitle(Text("Add Country"))
@@ -66,7 +67,8 @@ struct SearchCountryView: View {
                     
                 }
                 
-            }.padding(Theme.Sizes.pt8).hexBackground(Theme.Colors.color8E8E93, opacity: 0.12, cornerRadius: Theme.Sizes.pt10)
+            }
+            .padding(Theme.Sizes.pt8).hexBackground(Theme.Colors.color8E8E93, opacity: 0.12, cornerRadius: Theme.Sizes.pt10)
             
             if isEditing {
                 Button("Cancel") {
@@ -77,7 +79,9 @@ struct SearchCountryView: View {
                     }
                 }.foregroundColor(Color(hex: Theme.Colors.color000000))
             }
-        }.onChange(of: searchText) { _, newValue in
+        }            .accessibilityElement(children: .contain) // ensure XCUI sees it
+
+        .onChange(of: searchText) { _, newValue in
             withAnimation {
                 if !newValue.isEmpty {
                     isEditing = true
@@ -104,7 +108,8 @@ struct SearchCountryView: View {
             Text("No results found")
                 .font(.system(size: Theme.Sizes.pt16, weight: .bold, design: .default))
                 .foregroundColor(Color(hex: Theme.Colors.color8E8E93))
-            
+                .accessibilityIdentifier("noCountriesFoundLabel")
+
             Text("Try searching for another country")
                 .font(.system(size: Theme.Sizes.pt16, weight: .regular, design: .default))
                 .foregroundColor(Color(hex: Theme.Colors.color8E8E93))
@@ -116,6 +121,7 @@ struct SearchCountryView: View {
             RoundedRectangle(cornerRadius: Theme.Sizes.pt8)
                 .stroke(Color(hex: Theme.Colors.colorDDDDDD), lineWidth: Theme.Sizes.pt1)
         ).padding(.top, Theme.Sizes.pt16)
+
     }
     
     var viewLoadingState: some View {
