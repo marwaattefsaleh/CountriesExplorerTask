@@ -45,14 +45,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BB8AF4882EBD7FDC00336800 /* Exceptions for "CountriesExplorerTask" folder in "CountriesExplorerTask" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = BB5DAFE62EBCE34900934DC0 /* CountriesExplorerTask */;
-		};
-		BB8AF6012EBF007800336800 /* Exceptions for "CountriesExplorerTaskTests" folder in "CountriesExplorerTask" target */ = {
+		BB8AF7FA2EBF619400336800 /* Exceptions for "CountriesExplorerTaskTests" folder in "CountriesExplorerTask" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				MockFiles/MockDeleteCountryUseCase.swift,
@@ -63,13 +56,20 @@
 			);
 			target = BB5DAFE62EBCE34900934DC0 /* CountriesExplorerTask */;
 		};
+		BB8AF7FF2EBF61F700336800 /* Exceptions for "CountriesExplorerTask" folder in "CountriesExplorerTask" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BB5DAFE62EBCE34900934DC0 /* CountriesExplorerTask */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BB5DAFE92EBCE34900934DC0 /* CountriesExplorerTask */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BB8AF4882EBD7FDC00336800 /* Exceptions for "CountriesExplorerTask" folder in "CountriesExplorerTask" target */,
+				BB8AF7FF2EBF61F700336800 /* Exceptions for "CountriesExplorerTask" folder in "CountriesExplorerTask" target */,
 			);
 			path = CountriesExplorerTask;
 			sourceTree = "<group>";
@@ -77,7 +77,7 @@
 		BB5DAFFA2EBCE34A00934DC0 /* CountriesExplorerTaskTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BB8AF6012EBF007800336800 /* Exceptions for "CountriesExplorerTaskTests" folder in "CountriesExplorerTask" target */,
+				BB8AF7FA2EBF619400336800 /* Exceptions for "CountriesExplorerTaskTests" folder in "CountriesExplorerTask" target */,
 			);
 			path = CountriesExplorerTaskTests;
 			sourceTree = "<group>";
